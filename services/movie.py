@@ -25,7 +25,10 @@ def create_movie(movie_title: str, movie_description: str,
     movie = Movie.objects.create(title=movie_title,
                                  description=movie_description)
     if genres_ids:
-        movie.genres.set(*genres_ids)
+        if not isinstance(genres_ids, (list, tuple)):
+            genres_ids = [genres_ids]
+        movie.genres.set(genres_ids)
     if actors_ids:
-        movie.actors.set(*actors_ids)
-    return movie
+        if not isinstance(actors_ids, (list, tuple)):
+            actors_ids = [actors_ids]
+        movie.actors.set(actors_ids)
